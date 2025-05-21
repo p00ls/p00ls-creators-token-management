@@ -1,0 +1,133 @@
+{
+  "authentication": {
+    "signOut": "Sign Out"
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "or-separator": "or",
+    "retry": "Retry",
+    "save": "Save",
+    "token-unit_one": "Token",
+    "token-unit_other": "Tokens",
+    "token-unit_zero": "Token"
+  },
+  "components": {
+    "loading_bar": {
+      "loading": "Loading"
+    }
+  },
+  "select-wallet": {
+    "advice": {
+      "ethereum": "If you don’t have a wallet, we recommend creating a wallet with Metamask."
+    },
+    "help": "<faq>Need help? Read our guide to learn more</faq>",
+    "title": "Connect wallet"
+  },
+  "wallet": {
+    "confirmation-title": "Connected to:",
+    "disconnect-button": "Choose another wallet",
+    "types": {
+      "Coinbase": "Coinbase Wallet",
+      "Injected": "Browser wallet",
+      "Metamask": "MetaMask",
+      "MetamaskMobile": "MetaMask",
+      "Other": "Wallet Connect",
+      "Rainbow": "Rainbow",
+      "Tezos": "Tezos",
+      "Trust": "Trust"
+    }
+  },
+  "settings": {
+    "change-transferability": {
+      "change-title": "Transferability changes:",
+      "confirm-label": "Permanently change to full transferability",
+      "confirm-sublabel": "Once complete your token can be received by anyone.",
+      "full-label": "Full",
+      "full-sublabel": "No allowlist",
+      "limited-label": "Limited",
+      "limited-sublabel": "Allowlist",
+      "request-button": "Request & change",
+      "title": "You are about to permanently change who can send & receive your token",
+      "warning-text": "WARNING: This change cannot be undone!"
+    },
+    "go-to-settings-button": "Go back to settings",
+    "header": {
+      "not-minted-text": "Not minted yet"
+    },
+    "manage-allowlist-page": {
+      "add-confirmation-button": "Proceed",
+      "add-confirmation-subtext": "This address will be able to receive tokens from anyone and send tokens to anyone.",
+      "add-confirmation-text": "You are about to add {{address}} to the allowlist.",
+      "add-form": {
+        "add-button": "Add",
+        "input-placeholder": "Enter wallet address"
+      },
+      "description": "Wallet addresses that can receive tokens",
+      "pagination-row-kind_one": "Allowlisted wallet",
+      "pagination-row-kind_other": "Allowlisted wallets",
+      "pagination-row-kind_zero": "Allowlisted wallet",
+      "remove-confirmation-button": "Proceed",
+      "remove-confirmation-subtext": "This address won't be able to receive tokens from anyone or send tokens to anyone.",
+      "remove-confirmation-text": "You are about to remove {{address}} from the allowlist.",
+      "search-form": {
+        "input-placeholder": "Search allowlist",
+        "reset-button": "Reset",
+        "search-button": "Search"
+      },
+      "title": "Token Allowlist"
+    },
+    "not-minted-yet-state": {
+      "title": "Transferability will be configurable when token is minted"
+    },
+    "not-owner-state": {
+      "change-wallet-button": "Change wallet",
+      "text": "Connected wallet is {{currentAddress}} but owner is {{ownerAddress}}.",
+      "title": "Current wallet does not own the token."
+    },
+    "open-token-state": {
+      "title": "The token is fully transferable. Any wallet can receive tokens."
+    },
+    "processing-transaction-step": {
+      "title": "Your transaction is processing..."
+    },
+    "select-owner-wallet": {
+      "advice": "Connect the wallet which owns the token. Address is {{address}}."
+    },
+    "token-information-section": {
+      "contract-address-label": "Contract address on {{chain}}",
+      "title": "Token info",
+      "token-name-label": "Token name",
+      "token-symbol-label": "Token symbol",
+      "token-type-label": "Token type"
+    },
+    "token-transferability-section": {
+      "closed-token": {
+        "allowlist-label": "Token Allowlist",
+        "allowlisted-addresses-value_one": "{{value}} wallet",
+        "allowlisted-addresses-value_other": "{{value}} wallets",
+        "allowlisted-addresses-value_zero": "{{value}} wallet",
+        "change-button": "Change",
+        "description": "Allowlisted wallets receive tokens",
+        "title": "Limited"
+      },
+      "not-minted-text": "Transferability will be configurable when token is minted",
+      "open-token": {
+        "description": "Any wallet can receive tokens",
+        "info-button": "Info",
+        "title": "Fully transferable"
+      },
+      "title": "Transferability"
+    },
+    "wrong-chain-state": {
+      "change-button": "Change",
+      "text": "Wallet should be connected to <chain>{{target}}</chain>. Try change with the button below or via your wallet interface.",
+      "title": "Wallet not connected to required chain"
+    }
+  },
+  "states": {
+    "loading": "Loading...",
+    "coming-soon": "Coming soon"
+  }
+}
