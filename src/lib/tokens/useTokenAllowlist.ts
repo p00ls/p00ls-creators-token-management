@@ -1,17 +1,17 @@
-import { useReloadableQuery } from '@p00ls/ui-client';
-import { usePublicClient } from 'wagmi';
-import { tokenAbi } from './tokenAbi';
-import { TokenAllowlists } from './tokenAllowlists';
-import {Chains, HexString, TokenContract} from "../domain";
+import {useReloadableQuery} from '../ui';
+import {usePublicClient} from 'wagmi';
+import {tokenAbi} from './tokenAbi';
+import {TokenAllowlists} from './tokenAllowlists';
+import {HexString, TokenContract} from "../domain";
 
 interface Creation {
   contract: TokenContract;
   searchedAddress?: HexString;
 }
 
-export function useTokenAllowlist({ contract, searchedAddress }: Creation) {
+export function useTokenAllowlist({contract, searchedAddress}: Creation) {
   const client = usePublicClient({
-    chainId: Chains.getChainIdForName(Chains.fromLegacy(contract.chain)),
+    chainId: contract.chainId,
   });
   return useReloadableQuery(
     [contract, searchedAddress],
@@ -34,7 +34,7 @@ export function useTokenAllowlist({ contract, searchedAddress }: Creation) {
       address: contract.address,
       abi: tokenAbi,
       eventName: 'RoleGranted',
-      args: { role: roleAddress },
+      args: {role: roleAddress},
       fromBlock: BigInt(0),
       toBlock: 'latest',
     });
@@ -45,7 +45,7 @@ export function useTokenAllowlist({ contract, searchedAddress }: Creation) {
       address: contract.address,
       abi: tokenAbi,
       eventName: 'RoleRevoked',
-      args: { role: roleAddress },
+      args: {role: roleAddress},
       fromBlock: BigInt(0),
       toBlock: 'latest',
     });

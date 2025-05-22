@@ -1,4 +1,4 @@
-import { Functions } from './functions';
+import { Functions } from '../../functions/functions';
 import { CheckSvg, CopySvg } from '../svgs';
 import classNames from 'classnames';
 import {

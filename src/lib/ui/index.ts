@@ -12,3 +12,5 @@ export * from './routing';
 export * from './token';
 export * from './states';
 export * from './tranferBox';
+export * from './query';
+export * from './dialog';

@@ -1,5 +1,5 @@
-import { Addresses, HexString } from '../../../lib/domain';
-import { ConnectToWallet, SelectWallet, Wallet } from '@p00ls/wallet';
+import {Addresses, HexString} from '../../../lib/domain';
+import {ConnectToWallet, SelectWallet, Wallet} from '../../../lib/wallet';
 import {useTranslation} from "react-i18next";
 
 interface Props {
@@ -9,11 +9,11 @@ interface Props {
 }
 
 export function SelectOwnerWalletStep({
-  wallets,
-  connectToWallet,
-  ownerAddress,
-}: Props) {
-  const { t } = useTranslation();
+                                        wallets,
+                                        connectToWallet,
+                                        ownerAddress,
+                                      }: Props) {
+  const {t} = useTranslation();
 
   return (
     <div className={'flex flex-col items-center'}>

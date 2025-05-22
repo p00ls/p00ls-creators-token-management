@@ -22,3 +22,4 @@ export * from './CircleSvg';
 export * from './CheckSolidSvg';
 export * from './CheckboxOffSvg';
 export * from './CheckboxOnSvg';
+export * from './SearchSvg';

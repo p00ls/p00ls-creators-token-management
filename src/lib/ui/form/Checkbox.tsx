@@ -1,4 +1,4 @@
-import {Functions} from './functions';
+import {Functions} from '../../functions/functions';
 import {CheckboxOffSvg, CheckboxOnSvg, CheckSolidSvg, CircleSvg, P00lsGradientName,} from '../';
 import classNames from 'classnames';
 import {useCallback} from 'react';

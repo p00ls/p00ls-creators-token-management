@@ -1,16 +1,17 @@
 import {ExitSvg, VersatileLink} from '../../../lib/ui';
-import {UseWallet, useWallet as defaultUseWallet} from '@p00ls/wallet';
+import {UseWallet, useWallet as defaultUseWallet} from '../../../lib/wallet';
 import {
   useOpenToken as defaultUseOpenToken,
   UseOpenToken,
-  useTokenOwner as defaultUseTokenOwner,
   UseTokenOwner,
-} from '../../../features';
+  useTokenOwner as defaultUseTokenOwner
+} from '../../../lib/tokens';
 import {OpenTokenState} from '../common';
 import {ChangeTransferabilitySteps} from './ChangeTransferabilitySteps';
 import {useToken} from "../../layout/WithTokens";
 import {appRoutes} from "../../routing";
 import {TokenContract} from "../../../lib/domain";
+import {LoadingStateWrapper} from '@/lib/states/LoadingStateWrapper';
 import {ErrorStateWrapper} from "../../../lib/states";
 
 interface Props {
@@ -61,9 +62,14 @@ function TransferabilityForL2Contract({
     fetching: fetchingOwnerAddress,
     failed: ownerAddressFailed,
   } = useTokenOwner({
-    contract,
+    contract
   });
-
+  if (fetchingOwnerAddress) {
+    return <LoadingStateWrapper/>;
+  }
+  if (ownerAddressFailed) {
+    return <ErrorStateWrapper/>;
+  }
   if (contract.isOpened) {
     return <OpenTokenState/>;
   }

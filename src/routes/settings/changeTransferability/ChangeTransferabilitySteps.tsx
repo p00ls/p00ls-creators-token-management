@@ -1,14 +1,14 @@
-import {Addresses, Chains, EvmAddress, HexString, TokenContract} from '../../../lib/domain';
+import {Addresses, EvmAddress, HexString, TokenContract} from '../../../lib/domain';
 import {ColumnLayout, PrimaryButton} from '../../../lib/ui';
-import {useRouterMutation} from '@p00ls/ui-client-pages-router';
-import {AccountConnectionStatus, UseWallet} from '@p00ls/wallet';
+import {AccountConnectionStatus, UseWallet} from '../../../lib/wallet';
 import {useCallback} from 'react';
-import {UseOpenToken} from '../../../features';
 import {NotOwnerState, ProcessingTransactionStep, SelectOwnerWalletStep, WrongChainState,} from '../common';
 import {ConfirmChangeTransferabilityStep} from './ConfirmChangeTransferabilityStep';
 import {LoadingStateWrapper} from "../../../lib/states/LoadingStateWrapper";
 import {useTranslation} from "react-i18next";
 import {appRoutes} from "../../routing";
+import {useNavigate} from 'react-router';
+import {UseOpenToken} from "../../../lib/tokens";
 
 interface Props {
   contract: TokenContract;
@@ -31,15 +31,12 @@ export function ChangeTransferabilitySteps({
     switchToNetwork,
     currentChainId,
   } = useWallet();
-  const {push: pushRoute} = useRouterMutation();
+  const pushRoute = useNavigate();
   const onTransactionSucceeded = useCallback(
     () => pushRoute(appRoutes.settings),
     [pushRoute]
   );
 
-  const contractChainId = Chains.getChainIdForName(
-    Chains.fromLegacy(contract.chain)
-  );
   const connectedAsOwner =
     connection.status === AccountConnectionStatus.Connected &&
     Addresses.areEqual(connection.address, ownerAddress);
@@ -47,7 +44,7 @@ export function ChangeTransferabilitySteps({
   const {openToken, openTokenReady, openingToken} = useOpenToken({
     contract,
     onSucceeded: onTransactionSucceeded,
-    enabled: connectedAsOwner && currentChainId === contractChainId,
+    enabled: connectedAsOwner && currentChainId === contract.chainId,
   });
 
   const {t} = useTranslation();
@@ -68,11 +65,11 @@ export function ChangeTransferabilitySteps({
     );
   }
 
-  if (currentChainId !== contractChainId) {
+  if (currentChainId !== contract.chainId) {
     return (
       <WrongChainState
         switchToNetwork={switchToNetwork}
-        targetChainName={Chains.fromLegacy(contract.chain)}
+        targetChainName={contract.chainName}
         cancelHref={appRoutes.settings}
       />
     );
