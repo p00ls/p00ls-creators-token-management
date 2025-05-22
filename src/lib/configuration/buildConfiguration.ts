@@ -15,7 +15,7 @@ export const BuildConfigurationSchema = z.strictObject({
   sepoliaUrl: z.string(),
   polygonUrl: z.string(),
   amoyUrl: z.string(),
-  bypassWallet: z.coerce.boolean(),
+  bypassWallet: z.string().transform((val) => val.toLowerCase() === "true"),
   tokensAssetsBaseUrl: z.string(),
   assetsBaseUrl: z.string(),
 });
