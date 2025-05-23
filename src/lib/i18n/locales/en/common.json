@@ -18,6 +18,12 @@
       "loading": "Loading"
     }
   },
+  "error": {
+    "state": {
+      "text": "Refresh the page and try again. We’re sorry for the inconvenience.",
+      "title": "Something went wrong, please try again."
+    }
+  },
   "select-wallet": {
     "advice": {
       "ethereum": "If you don’t have a wallet, we recommend creating a wallet with Metamask."
