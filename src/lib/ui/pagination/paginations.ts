@@ -30,7 +30,7 @@ function deserialize(
 ): PaginationValue | undefined {
   try {
     return unsafelyDeserialize();
-  } catch (error) {
+  } catch (_error) {
     return undefined;
   }
 

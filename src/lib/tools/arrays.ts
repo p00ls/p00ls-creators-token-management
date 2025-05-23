@@ -23,7 +23,11 @@ function difference<T>(left: T[], right: T[]): T[] {
 
 function findDuplicates<T>(array: T[]): T[] {
   const mappedDuplicates = array.reduce((acc, val) => {
-    acc.has(val) ? acc.set(val, acc.get(val) + 1) : acc.set(val, 1);
+    if (acc.has(val)) {
+      acc.set(val, acc.get(val) + 1);
+    } else {
+      acc.set(val, 1);
+    }
     return acc;
   }, new Map());
   return [...mappedDuplicates.entries()].reduce((acc, val) => {

@@ -1,4 +1,3 @@
-import {colorMap} from './colorMap';
 import {Color} from './colors';
 
 export interface GradientVector {
