@@ -12,7 +12,6 @@ on:
 
 jobs:
   build:
-    name: Test then deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,13 +19,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-      - name: "Install Dependencies"
+      - name: Install Dependencies
         shell: bash
         run: npm ci
-      - name: build
-        run: |
-          npm run lint
-          npm run build
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+        env:
+          VITE_ETHEREUM_CHAIN_ID: 1
+          VITE_APP_POLYGON_CHAIN_ID: 137
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
