@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import {ForwardedRef, forwardRef, ReactNode} from 'react';
-import {PrimaryButtonColor, primaryButtonThemes} from './buttonThemes';
-import {BaseButtonProps, resolveButtonValue} from './common';
+import { ForwardedRef, forwardRef, ReactNode } from 'react';
+import { VersatileLink } from '../routing';
+import { PrimaryButtonColor, primaryButtonThemes } from './buttonThemes';
+import { BaseButtonProps, resolveButtonValue } from './common';
 
 export const PrimaryButton = forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
@@ -11,6 +12,7 @@ export const PrimaryButton = forwardRef<
     {
       type = 'button',
       primaryButtonThemeName,
+      href,
       block = false,
       size = 'm',
       ...props
@@ -24,6 +26,23 @@ export const PrimaryButton = forwardRef<
       'inline-block': !block,
       'opacity-60': props.disabled,
     });
+    if (href) {
+      return (
+        <VersatileLink
+          {...props}
+          href={href}
+          className={className}
+          ref={ref as ForwardedRef<HTMLAnchorElement>}
+        >
+          <InnerButton
+            value={resolveButtonValue(props)}
+            primaryButtonThemeName={primaryButtonThemeName}
+            size={size}
+            disabled={props.disabled || false}
+          />
+        </VersatileLink>
+      );
+    }
     return (
       <button
         {...props}

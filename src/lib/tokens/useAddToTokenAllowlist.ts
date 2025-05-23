@@ -9,6 +9,7 @@ interface Dependencies {
   addressToAdd: HexString;
   onSucceeded: () => void;
   enabled: boolean;
+  chainId: number;
 }
 
 export type UseAddToTokenAllowlist = typeof useAddToTokenAllowlist;
@@ -18,13 +19,14 @@ export function useAddToTokenAllowlist({
                                          addressToAdd,
                                          onSucceeded,
                                          enabled,
+                                         chainId,
                                        }: Dependencies) {
   const {config, isError: prepareFailed} = usePrepareContractWrite({
     address: contract.address,
     abi: tokenAbi,
     functionName: 'grantRole',
     args: [TokenAllowlists.roleAddress, addressToAdd],
-    chainId: contract.chainId,
+    chainId: chainId,
     enabled,
   });
   const {write, data, isError: writeFailed} = useContractWrite(config);

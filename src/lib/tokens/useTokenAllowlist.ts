@@ -7,11 +7,12 @@ import {HexString, TokenContract} from "../domain";
 interface Creation {
   contract: TokenContract;
   searchedAddress?: HexString;
+  chainId: number;
 }
 
-export function useTokenAllowlist({contract, searchedAddress}: Creation) {
+export function useTokenAllowlist({contract, searchedAddress, chainId}: Creation) {
   const client = usePublicClient({
-    chainId: contract.chainId,
+    chainId: chainId,
   });
   return useReloadableQuery(
     [contract, searchedAddress],

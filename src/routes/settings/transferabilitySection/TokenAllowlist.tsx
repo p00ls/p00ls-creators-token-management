@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {appRoutes} from "../../routing";
 import {UseTokenAllowlist} from "../../../lib/tokens";
 import {Numbers} from "../../../lib/tools";
+import {useBuildConfiguration} from "../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   contract: TokenContract;
@@ -12,7 +13,8 @@ interface Props {
 
 export function TokenAllowlist({useTokenAllowlist, contract}: Props) {
   const {t} = useTranslation();
-  const {result: allowlistResult} = useTokenAllowlist({contract});
+  const {appPolygonChainId} = useBuildConfiguration();
+  const {result: allowlistResult} = useTokenAllowlist({contract, chainId: appPolygonChainId});
   return (
     <div className={'flex flex-col gap-6'}>
       <div className={'flex items-center justify-between'}>

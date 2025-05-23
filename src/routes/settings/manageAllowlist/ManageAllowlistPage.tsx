@@ -17,6 +17,7 @@ import {useToken} from "../../layout/WithTokens";
 import {HexString, TokenContract} from "../../../lib/domain";
 import {LoadingStateWrapper} from "../../../lib/states/LoadingStateWrapper";
 import {ErrorStateWrapper} from "../../../lib/states";
+import {useBuildConfiguration} from "../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   useTokenAllowlist?: UseTokenAllowlist;
@@ -79,6 +80,7 @@ function AllowlistForL2Contract({
                                   useWallet,
                                   searchedAddress,
                                 }: AllowlistForL2ContractProps) {
+  const {appPolygonChainId} = useBuildConfiguration();
 
   const {
     ownerAddress,
@@ -86,6 +88,7 @@ function AllowlistForL2Contract({
     failed: ownerAddressFailed,
   } = useTokenOwner({
     contract,
+    chainId: appPolygonChainId
   });
   if (fetchingOwnerAddress) {
     return <LoadingStateWrapper/>;

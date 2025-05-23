@@ -9,6 +9,7 @@ interface Dependencies {
   addressToRemove: HexString;
   onSucceeded: () => void;
   enabled: boolean;
+  chainId: number;
 }
 
 export type UseRemoveFromTokenAllowlist = typeof useRemoveFromTokenAllowlist;
@@ -18,13 +19,14 @@ export function useRemoveFromTokenAllowlist({
                                               addressToRemove,
                                               onSucceeded,
                                               enabled,
+                                              chainId,
                                             }: Dependencies) {
   const {config, isError: prepareFailed} = usePrepareContractWrite({
     address: contract.address,
     abi: tokenAbi,
     functionName: 'revokeRole',
     args: [TokenAllowlists.roleAddress, addressToRemove],
-    chainId: contract.chainId,
+    chainId: chainId,
     enabled,
   });
   const {write, data, isError: writeFailed} = useContractWrite(config);

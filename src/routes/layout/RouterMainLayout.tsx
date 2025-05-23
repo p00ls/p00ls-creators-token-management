@@ -10,7 +10,7 @@ export function RouterMainLayout() {
     <div className={'min-h-screen bg-creator-black'}>
       <ScrollToTop/>
       <XYCenteredLayout>
-        <ColumnLayout size={'md'}>
+        <ColumnLayout size={'lg'}>
           <OwnerWalletGuard>
             <WithTokens>
               <Outlet/>

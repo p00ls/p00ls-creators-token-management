@@ -4,6 +4,7 @@ import {AddToTokenAllowlistForm} from './add';
 import {AllowlistedAddresses} from './AllowlistedAddresses';
 import {HexString, TokenContract} from "../../../lib/domain";
 import {QueryResultPresenterWrapper} from "../../../lib/ui";
+import {useBuildConfiguration} from "../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   contract: TokenContract;
@@ -24,8 +25,9 @@ export function TokenAllowlist({
                                  ownerAddress,
                                  searchedAddress,
                                }: Props) {
+  const {appPolygonChainId} = useBuildConfiguration();
   const {result: allowlistResult, reload: reloadAllowlist} =
-    useTokenAllowlist({contract, searchedAddress});
+    useTokenAllowlist({contract, searchedAddress, chainId: appPolygonChainId});
   return (
     <div className={'flex-1 min-h-0 flex flex-col gap-8'}>
       <div className={'max-w-screen-lg'}>

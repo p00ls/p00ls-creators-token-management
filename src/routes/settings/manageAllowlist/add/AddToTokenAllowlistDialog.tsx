@@ -1,12 +1,13 @@
 import {useRef} from 'react';
 import {NotOwnerState, ProcessingTransactionStep, SelectOwnerWalletStep, WrongChainState,} from '../../common';
 import {ConfirmAddToTokenAllowlistStep} from './ConfirmAddToTokenAllowlistStep';
-import {Addresses, EvmAddress, HexString, TokenContract} from "../../../../lib/domain";
+import {Addresses, Chains, EvmAddress, HexString, TokenContract} from "../../../../lib/domain";
 import {UseAddToTokenAllowlist} from "../../../../lib/tokens";
 import {AccountConnectionStatus, UseWallet} from "../../../../lib/wallet";
 import {CenteredDialog, ExitSvg, TertiaryButton} from "../../../../lib/ui";
 import {LoadingStateWrapper} from "../../../../lib/states/LoadingStateWrapper";
 import {ErrorStateWrapper} from "../../../../lib/states";
+import {useBuildConfiguration} from "../../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   contract: TokenContract;
@@ -37,6 +38,7 @@ export function AddToTokenAllowlistDialog({
     disconnectFromWallet,
     currentChainId,
   } = useWallet();
+  const {appPolygonChainId} = useBuildConfiguration();
 
   const connectedAsOwner =
     connection.status === AccountConnectionStatus.Connected &&
@@ -54,7 +56,8 @@ export function AddToTokenAllowlistDialog({
     enabled:
       connection.status === AccountConnectionStatus.Connected &&
       connectedAsOwner &&
-      currentChainId === contract.chainId,
+      currentChainId === appPolygonChainId,
+    chainId: appPolygonChainId
   });
 
   const focusableButtonRef = useRef(null);
@@ -96,11 +99,11 @@ export function AddToTokenAllowlistDialog({
         />
       );
     }
-    if (currentChainId !== contract.chainId) {
+    if (currentChainId !== appPolygonChainId) {
       return (
         <WrongChainState
           switchToNetwork={switchToNetwork}
-          targetChainName={contract.chainName}
+          targetChainName={Chains.getChainNameForId(appPolygonChainId)}
           onCancel={onClose}
         />
       );

@@ -6,11 +6,11 @@ import {useBuildConfiguration} from "../configuration/BuildConfigurationProvider
 const empty: TokenContract[] = [];
 
 export function useCreatorTokens() {
-  const {web3} = useBuildConfiguration();
+  const {appPolygonChainId} = useBuildConfiguration();
   const {getCreatorTokens} = useTheGraph();
   const {data, isLoading, error} = useSWR(
-    ["getCreatorTokens", web3.chainId],
-    () => getCreatorTokens({chainId: web3.chainId}),
+    ["getCreatorTokens", appPolygonChainId],
+    () => getCreatorTokens({chainId: appPolygonChainId}),
     {revalidateOnFocus: false}
   );
   return {

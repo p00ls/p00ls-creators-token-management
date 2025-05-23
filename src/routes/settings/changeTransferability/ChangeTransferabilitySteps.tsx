@@ -1,4 +1,4 @@
-import {Addresses, EvmAddress, HexString, TokenContract} from '../../../lib/domain';
+import {Addresses, Chains, EvmAddress, HexString, TokenContract} from '../../../lib/domain';
 import {ColumnLayout, PrimaryButton} from '../../../lib/ui';
 import {AccountConnectionStatus, UseWallet} from '../../../lib/wallet';
 import {useCallback} from 'react';
@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 import {appRoutes} from "../../routing";
 import {useNavigate} from 'react-router';
 import {UseOpenToken} from "../../../lib/tokens";
+import {useBuildConfiguration} from "../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   contract: TokenContract;
@@ -36,6 +37,7 @@ export function ChangeTransferabilitySteps({
     () => pushRoute(appRoutes.settings),
     [pushRoute]
   );
+  const {appPolygonChainId} = useBuildConfiguration();
 
   const connectedAsOwner =
     connection.status === AccountConnectionStatus.Connected &&
@@ -44,7 +46,8 @@ export function ChangeTransferabilitySteps({
   const {openToken, openTokenReady, openingToken} = useOpenToken({
     contract,
     onSucceeded: onTransactionSucceeded,
-    enabled: connectedAsOwner && currentChainId === contract.chainId,
+    enabled: connectedAsOwner && currentChainId === appPolygonChainId,
+    chainId: appPolygonChainId,
   });
 
   const {t} = useTranslation();
@@ -65,11 +68,11 @@ export function ChangeTransferabilitySteps({
     );
   }
 
-  if (currentChainId !== contract.chainId) {
+  if (currentChainId !== appPolygonChainId) {
     return (
       <WrongChainState
         switchToNetwork={switchToNetwork}
-        targetChainName={contract.chainName}
+        targetChainName={Chains.getChainNameForId(appPolygonChainId)}
         cancelHref={appRoutes.settings}
       />
     );

@@ -18,6 +18,7 @@ export const BuildConfigurationSchema = z.strictObject({
   bypassWallet: z.string().transform((val) => val.toLowerCase() === "true"),
   tokensAssetsBaseUrl: z.string(),
   assetsBaseUrl: z.string(),
+  appPolygonChainId: z.coerce.number(),
 });
 export type BuildConfiguration = z.infer<typeof BuildConfigurationSchema>;
 
@@ -39,5 +40,6 @@ export function loadBuildConfiguration() {
     bypassWallet: import.meta.env.VITE_BYPASS_WALLET,
     tokensAssetsBaseUrl: import.meta.env.VITE_TOKENS_ASSETS_BASE_URL,
     assetsBaseUrl: import.meta.env.VITE_ASSETS_BASE_URL,
+    appPolygonChainId: import.meta.env.VITE_APP_POLYGON_CHAIN_ID,
   });
 }

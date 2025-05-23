@@ -7,16 +7,17 @@ interface Dependencies {
   contract: TokenContract;
   onSucceeded: () => void;
   enabled: boolean;
+  chainId: number;
 }
 
 export type UseOpenToken = typeof useOpenToken;
 
-export function useOpenToken({contract, onSucceeded, enabled}: Dependencies) {
+export function useOpenToken({contract, onSucceeded, enabled, chainId}: Dependencies) {
   const {config, isError: prepareFailed} = usePrepareContractWrite({
     address: contract.address,
     abi: tokenAbi,
     functionName: 'open',
-    chainId: contract.chainId,
+    chainId: chainId,
     enabled,
   });
   const {write, data, isError: writeFailed} = useContractWrite(config);

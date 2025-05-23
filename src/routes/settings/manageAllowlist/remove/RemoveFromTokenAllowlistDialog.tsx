@@ -1,13 +1,14 @@
 import {useRef} from 'react';
 import {NotOwnerState, ProcessingTransactionStep, SelectOwnerWalletStep, WrongChainState,} from '../../common';
 import {ConfirmRemoveFromTokenAllowlistStep} from './ConfirmRemoveFromTokenAllowlistStep';
-import {Addresses, EvmAddress, HexString, TokenContract} from "../../../../lib/domain";
+import {Addresses, Chains, EvmAddress, HexString, TokenContract} from "../../../../lib/domain";
 import {UseRemoveFromTokenAllowlist} from "../../../../lib/tokens";
 import {AccountConnectionStatus, UseWallet} from "../../../../lib/wallet";
 import {CenteredDialog, ExitSvg, TertiaryButton} from "../../../../lib/ui";
 import {LoadingStateWrapper} from "../../../../lib/states/LoadingStateWrapper";
 import {appRoutes} from "../../../routing";
 import {ErrorStateWrapper} from "../../../../lib/states";
+import {useBuildConfiguration} from "../../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   contract: TokenContract;
@@ -39,6 +40,8 @@ export function RemoveFromTokenAllowlistDialog({
     currentChainId,
   } = useWallet();
 
+  const {appPolygonChainId} = useBuildConfiguration();
+
   const connectedAsOwner =
     connection.status === AccountConnectionStatus.Connected &&
     Addresses.areEqual(connection.address, ownerAddress);
@@ -52,7 +55,8 @@ export function RemoveFromTokenAllowlistDialog({
     contract,
     addressToRemove,
     onSucceeded,
-    enabled: connectedAsOwner && currentChainId === contract.chainId,
+    enabled: connectedAsOwner && currentChainId === appPolygonChainId,
+    chainId: appPolygonChainId
   });
 
   const focusableButtonRef = useRef(null);
@@ -94,11 +98,11 @@ export function RemoveFromTokenAllowlistDialog({
         />
       );
     }
-    if (currentChainId !== contract.chainId) {
+    if (currentChainId !== appPolygonChainId) {
       return (
         <WrongChainState
           switchToNetwork={switchToNetwork}
-          targetChainName={contract.chainName}
+          targetChainName={Chains.getChainNameForId(appPolygonChainId)}
           onCancel={onClose}
         />
       );

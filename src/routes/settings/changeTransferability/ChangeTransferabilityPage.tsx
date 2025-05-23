@@ -13,6 +13,7 @@ import {appRoutes} from "../../routing";
 import {TokenContract} from "../../../lib/domain";
 import {LoadingStateWrapper} from '@/lib/states/LoadingStateWrapper';
 import {ErrorStateWrapper} from "../../../lib/states";
+import {useBuildConfiguration} from "../../../lib/configuration/BuildConfigurationProvider";
 
 interface Props {
   useOpenToken?: UseOpenToken;
@@ -56,13 +57,14 @@ function TransferabilityForL2Contract({
                                         useTokenOwner,
                                         useWallet,
                                       }: TransferabilityForL2ContractProps) {
-
+  const {appPolygonChainId} = useBuildConfiguration();
   const {
     ownerAddress,
     fetching: fetchingOwnerAddress,
     failed: ownerAddressFailed,
   } = useTokenOwner({
-    contract
+    contract,
+    chainId: appPolygonChainId
   });
   if (fetchingOwnerAddress) {
     return <LoadingStateWrapper/>;

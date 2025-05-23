@@ -4,14 +4,15 @@ import {TokenContract, ZodEvmAddress} from "../domain";
 
 interface Creation {
   contract: TokenContract;
+  chainId: number;
 }
 
-export function useTokenOwner({contract}: Creation) {
+export function useTokenOwner({contract, chainId}: Creation) {
   const {data, isLoading, isError} = useContractRead({
     address: contract.address,
     abi: tokenAbi,
     functionName: 'owner',
-    chainId: contract.chainId,
+    chainId: chainId,
   });
   return {
     ownerAddress: data ? ZodEvmAddress.parse(data) : undefined,
