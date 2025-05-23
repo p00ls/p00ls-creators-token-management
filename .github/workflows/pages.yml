@@ -27,8 +27,11 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          VITE_PUBLIC_URL: https://creator-token.p00ls.io/
           VITE_ETHEREUM_CHAIN_ID: 1
           VITE_APP_POLYGON_CHAIN_ID: 137
+          VITE_MAINNET_URL: https://gateway.thegraph.com/api/545ad1c76de40063b690608e3c1054c5/subgraphs/id/21p4WHdizPCSd7TAXTKR1va5ZWoRrhKYsJN4vkKk9uoZ
+          VITE_POLYGON_URL: https://graph-node.prod.p00ls.io/subgraphs/name/p00ls/production-polygon
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
