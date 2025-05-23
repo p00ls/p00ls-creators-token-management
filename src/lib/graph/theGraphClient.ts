@@ -5,10 +5,16 @@ import {BuildConfiguration} from "../configuration/buildConfiguration";
 
 interface TheGraphClient {
   getCreatorTokens: (query: GetCreatorTokensQuery) => Promise<TokenContract[]>;
+  getEthereumCreatorToken: (query: GetCreatorTokenQuery) => Promise<TokenContract | undefined>;
 }
 
 interface GetCreatorTokensQuery {
   chainId: ChainId;
+}
+
+interface GetCreatorTokenQuery {
+  chainId: ChainId;
+  symbol: string;
 }
 
 const RawContract = z.strictObject({
@@ -23,6 +29,18 @@ type RawContract = z.infer<typeof RawContract>;
 const getCreatorTokensGql = gql`
   query GetCreatorTokens {
     erc20Contracts(where: { creatorToken: null }, first:1000) {
+      id
+      name
+      symbol
+      decimals
+      isOpened
+    }
+  }
+`;
+
+const getEthereumCreatorTokenGql = gql`
+  query getEthereumCreatorToken($symbol: String) {
+    erc20Contracts(where: { symbol: $symbol }) {
       id
       name
       symbol
@@ -52,7 +70,14 @@ export function createTheGraphClient({
   };
   return {
     getCreatorTokens,
+    getEthereumCreatorToken
   };
+
+  async function getEthereumCreatorToken({symbol, chainId}: GetCreatorTokenQuery): Promise<TokenContract | undefined> {
+    const result = await request(urlByChainId[chainId], getEthereumCreatorTokenGql, {symbol});
+    const typedResult = GetCreatorTokensRawResult.parse(result);
+    return typedResult.erc20Contracts.length > 0 ? parseRawContract(typedResult.erc20Contracts[0], chainId) : undefined;
+  }
 
   async function getCreatorTokens({
                                     chainId,

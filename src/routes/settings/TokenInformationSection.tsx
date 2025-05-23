@@ -6,9 +6,10 @@ import {useTranslation} from "react-i18next";
 
 interface Props {
   token: TokenContract;
+  ethereumToken: TokenContract | undefined;
 }
 
-export function TokenInformationSection({token}: Props) {
+export function TokenInformationSection({token, ethereumToken}: Props) {
   const {t} = useTranslation();
   return (
     <div className={'flex flex-col gap-8'}>
@@ -34,38 +35,40 @@ export function TokenInformationSection({token}: Props) {
           </LabelText>
           <ValueText>ERC-20</ValueText>
         </InformationRow>
-        <ContractRows token={token}/>
+        <ContractRows tokens={ethereumToken ? [token, ethereumToken] : [token]}/>
       </div>
     </div>
   );
 }
 
-function ContractRows({token}: { token: TokenContract }) {
+function ContractRows({tokens}: { tokens: TokenContract[] }) {
   const {t} = useTranslation();
-  return <InformationRow key={`${token.chainId}_${token.address}`}>
-    <LabelText>
-      {t('settings.token-information-section.contract-address-label', {
-        chain: Chains.getChainDisplayNameForName(token.chainName),
-      })}
-    </LabelText>
-    <ValueText>
-      <div className={'flex items-center'}>
-        <BlockExplorerLink
-          address={token.address}
-          type={'token'}
-          chainName={token.chainName}
-        >
-          {Addresses.truncate(token.address)}
-          <ExternalUrlSvg className={'inline-block ml-2.5 mb-1 w-5 h-5'}/>
-        </BlockExplorerLink>
-        <CopyToClipboardButton
-          value={token.address}
-          className={'ml-2.5 mb-1'}
-          size={'sm'}
-        />
-      </div>
-    </ValueText>
-  </InformationRow>;
+  return tokens.map((token) => (
+    <InformationRow key={`${token.chainId}_${token.address}`}>
+      <LabelText>
+        {t('settings.token-information-section.contract-address-label', {
+          chain: Chains.getChainDisplayNameForName(token.chainName),
+        })}
+      </LabelText>
+      <ValueText>
+        <div className={'flex items-center'}>
+          <BlockExplorerLink
+            address={token.address}
+            type={'token'}
+            chainName={token.chainName}
+          >
+            {Addresses.truncate(token.address)}
+            <ExternalUrlSvg className={'inline-block ml-2.5 mb-1 w-5 h-5'}/>
+          </BlockExplorerLink>
+          <CopyToClipboardButton
+            value={token.address}
+            className={'ml-2.5 mb-1'}
+            size={'sm'}
+          />
+        </div>
+      </ValueText>
+    </InformationRow>
+  ));
 }
 
 function InformationRow({children}: PropsWithChildren) {
