@@ -38,7 +38,7 @@ function SelectToken({onSelectToken}: { onSelectToken: (tokenInfos: TokenContrac
       if (bypassWallet) {
         return true;
       }
-      return token.address === ownerWalletInfos.address;
+      return token.ownerAddress === ownerWalletInfos.address;
     });
   }, [creatorTokens, ownerWalletInfos, bypassWallet]);
 

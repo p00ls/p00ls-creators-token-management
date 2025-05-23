@@ -51,6 +51,7 @@ export interface TokenContract {
   isOpened: boolean;
   chainId: ChainId;
   chainName: ChainName;
+  ownerAddress: string;
 }
 
 export interface Transaction {

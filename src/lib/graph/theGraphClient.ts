@@ -23,6 +23,11 @@ const RawContract = z.strictObject({
   symbol: z.string(),
   decimals: z.number(),
   isOpened: z.coerce.boolean(),
+  ownershipToken: z.object({
+    owner: z.object({
+      id: z.string(),
+    }),
+  }),
 });
 type RawContract = z.infer<typeof RawContract>;
 
@@ -34,6 +39,11 @@ const getCreatorTokensGql = gql`
       symbol
       decimals
       isOpened
+      ownershipToken {
+        owner {
+          id
+        }
+      }
     }
   }
 `;
@@ -46,6 +56,11 @@ const getEthereumCreatorTokenGql = gql`
       symbol
       decimals
       isOpened
+      ownershipToken {
+        owner {
+          id
+        }
+      }
     }
   }
 `;
@@ -96,6 +111,7 @@ export function createTheGraphClient({
       isOpened: raw.isOpened || false,
       chainId: chainId,
       chainName: getChainNameForId(chainId),
+      ownerAddress: raw.ownershipToken.owner.id
     };
   }
 }
