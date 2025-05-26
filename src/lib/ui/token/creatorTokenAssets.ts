@@ -1,6 +1,6 @@
 export const CreatorTokenAssets = {
-  logo: (tokenId: string, assetsBaseUrl?: string) =>
-    `${basePath(assetsBaseUrl)}${tokenId}/logo.png`,
+  logo: (tokenId: string) =>
+    `/tokens/${tokenId}/logo.png`,
 
   token: (tokenId: string, assetsBaseUrl?: string) =>
     `${basePath(assetsBaseUrl)}${tokenId}/token.png`,

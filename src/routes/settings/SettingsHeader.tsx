@@ -8,7 +8,6 @@ import {
   TokenLogo
 } from '../../lib/ui';
 import {useTranslation} from "react-i18next";
-import {useBuildConfiguration} from "../../lib/configuration/BuildConfigurationProvider";
 import {useWallet} from "../../lib/wallet";
 
 interface Props {
@@ -17,7 +16,6 @@ interface Props {
 
 export function SettingsHeader({token}: Props) {
   const {t} = useTranslation();
-  const {tokensAssetsBaseUrl} = useBuildConfiguration();
   const {disconnectFromWallet} = useWallet();
 
   return (
@@ -31,7 +29,6 @@ export function SettingsHeader({token}: Props) {
           <div className='relative w-10 h-12'>
             <TokenLogo
               tokenId={token.symbol}
-              assetsBaseUrl={tokensAssetsBaseUrl}
               layout={'responsive'}
             />
           </div>

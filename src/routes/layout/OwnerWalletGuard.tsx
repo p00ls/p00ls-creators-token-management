@@ -54,14 +54,16 @@ export function OwnerWalletGuard({
       );
     } else {
       return (
-        <SelectWallet
-          wallets={wallets}
-          connectToWallet={connectToWallet}
-          title={t('select-wallet.title')}
-          ethereumAdvice={t('select-wallet.advice.ethereum')}
-          next={t('common.continue')}
-          retry={t('common.retry')}
-        />
+        <div className='flex flex-col w-full items-center'>
+          <SelectWallet
+            wallets={wallets}
+            connectToWallet={connectToWallet}
+            title={t('select-wallet.title')}
+            ethereumAdvice={t('select-wallet.advice.ethereum')}
+            next={t('common.continue')}
+            retry={t('common.retry')}
+          />
+        </div>
       );
     }
   }

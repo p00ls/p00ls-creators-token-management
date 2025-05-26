@@ -1,10 +1,8 @@
 import {ReactNode} from 'react';
 
 export function Loading({
-                          assetsBaseUrl,
                           message,
                         }: {
-  assetsBaseUrl: string;
   message?: ReactNode;
 }) {
   return (
@@ -16,7 +14,7 @@ export function Loading({
       )}
       <div className={'h-7 relative'}>
         <img
-          src={`${assetsBaseUrl}/images/loading.gif`}
+          src={`/loading.gif`}
           alt='loading bar'
           aria-hidden={true}
           className='object-contain'

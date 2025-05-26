@@ -17,16 +17,15 @@ export type TokenLogoLayoutProps =
 
 export type TokenLogoProps = {
   tokenId: string;
-  assetsBaseUrl: string;
 } & TokenLogoLayoutProps;
 
-export function TokenLogo({tokenId, assetsBaseUrl, ...rest}: TokenLogoProps) {
+export function TokenLogo({tokenId, ...rest}: TokenLogoProps) {
   const [error, setError] = useState<
     SyntheticEvent<HTMLImageElement> | undefined
   >(undefined);
 
-  const src = CreatorTokenAssets.logo(tokenId, assetsBaseUrl);
-  const fallbackSrc = `${assetsBaseUrl}/nologo.png`;
+  const src = CreatorTokenAssets.logo(tokenId);
+  const fallbackSrc = `/nologo.png`;
 
   useEffect(() => {
     setError(undefined);

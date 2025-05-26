@@ -59,5 +59,3 @@ vitest.config.*.timestamp*
 *storybook.log
 
 .env.local
-.ci.devel.env
-.ci.prod.env
